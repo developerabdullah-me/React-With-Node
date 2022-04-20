@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [user,setUser]=useState([])
+  const [users,setUser]=useState([])
   useEffect(() =>{
     fetch(`http://localhost:5000/users`)
     .then(res =>res.json())
@@ -11,7 +11,12 @@ function App() {
   },[])
   return (
     <div className="App">
-     <h1>user{user.length}</h1>
+     <h1>user{users.length}</h1>
+     <ul>
+       {
+         users.map(user => <li style={{listStyle:'none'}}> {user.name} { user.email}</li>)
+       }
+     </ul>
     </div>
   );
 }
