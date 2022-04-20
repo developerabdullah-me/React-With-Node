@@ -13,7 +13,22 @@ function App() {
     event.preventDefault();
 const name=event.target.name.value;
 const email=event.target.email.value;
-console.log(email,name);
+const user={email,name};
+
+// post 
+
+fetch('http://localhost:5000/user', {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(user),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+
   }
   return (
     <div className="App">
