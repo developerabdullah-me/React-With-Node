@@ -9,9 +9,20 @@ function App() {
     .then(res =>res.json())
     .then(data => setUser(data))
   },[])
+  const handelSubmit=event=>{
+    event.preventDefault();
+const name=event.target.name.value;
+const email=event.target.email.value;
+console.log(email,name);
+  }
   return (
     <div className="App">
      <h1>user{users.length}</h1>
+     <form onSubmit={handelSubmit}>
+       <input type="name" name='name' required placeholder='name' />
+       <input type="email" name='email' required placeholder='email' />
+     <input type="submit" value="add user"/>
+     </form>
      <ul>
        {
          users.map(user => <li style={{listStyle:'none'}}> {user.name} { user.email}</li>)
