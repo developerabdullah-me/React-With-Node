@@ -3,11 +3,11 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [users,setUser]=useState([])
+  const [users,setUsers]=useState([])
   useEffect(() =>{
     fetch(`http://localhost:5000/users`)
     .then(res =>res.json())
-    .then(data => setUser(data))
+    .then(data => setUsers(data))
   },[])
   const handelSubmit=event=>{
     event.preventDefault();
@@ -24,8 +24,10 @@ fetch('http://localhost:5000/user', {
   },
   body: JSON.stringify(user),
 })
-.then(response => response.json())
+.then(res => res.json())
 .then(data => {
+  const newUser=[...users,data]
+  setUsers(newUser); 
   console.log('Success:', data);
 })
 
@@ -37,11 +39,13 @@ fetch('http://localhost:5000/user', {
        <input type="name" name='name' required placeholder='name' />
        <input type="email" name='email' required placeholder='email' />
      <input type="submit" value="add user"/>
+    
      </form>
      <ul>
-       {
-         users.map(user => <li style={{listStyle:'none'}}> {user.name} { user.email}</li>)
-       }
+     {
+          users.map(user => <li key={user.id} style={{listStyle:'none'}}> id: {user.id} name: {user.name} email: {user.email} </li>)
+        }
+       
      </ul>
     </div>
   );
